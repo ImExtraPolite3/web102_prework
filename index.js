@@ -30,12 +30,9 @@ function addGamesToPage(games) {
   // loop over each item in the data
   for (let i = 0; i < games.length; i++) {
     // create a new div element, which will become the game card
-
     const newDiv = document.createElement('div');
     // add the class game-card to the list
-
     newDiv.classList.add('game-card');
-
     // set the inner HTML using a template literal to display some info
     // about each game
     newDiv.innerHTML = `<img src = ${games[i].img} width="300px"/> <br> 
@@ -43,7 +40,6 @@ function addGamesToPage(games) {
     Amount pledged: $${games[i].pledged} <br>
     Goal amount: $${games[i].goal}`;
     // append the game to the games-container
-
     gamesContainer.appendChild(newDiv);
   }
 }
@@ -64,10 +60,8 @@ const contributionsCard = document.getElementById('num-contributions');
 const numOfContribution = GAMES_JSON.reduce((item1, item2) => {
   return item1 + item2.backers;
 }, 0);
-
 // set the inner HTML using a template literal and toLocaleString to get a number with commas
 contributionsCard.innerHTML = `${numOfContribution}`;
-
 // grab the amount raised card, then use reduce() to find the total amount raised
 const raisedCard = document.getElementById('total-raised');
 
@@ -76,9 +70,7 @@ const totalRaised = GAMES_JSON.reduce((acc, current) => {
 }, 0);
 
 // set inner HTML using template literal
-
 raisedCard.innerHTML = `$${totalRaised}`;
-
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById('num-games');
 let total = 0;
@@ -97,26 +89,44 @@ gamesCard.innerHTML = `${total}`;
 
 // show only games that do not yet have enough funding
 function filterUnfundedOnly() {
-  deleteChildElements(gamesContainer);
+  const unfundedbtn = document.getElementById('unfunded-btn');
 
   // use filter() to get a list of games that have not yet met their goal
+  const notEnoughFunding = GAMES_JSON.filter((games) => {
+    return games.pledged < games.goal;
+  });
 
+  unfundedbtn.addEventListener('click', () => {
+    deleteChildElements(gamesContainer);
+    addGamesToPage(notEnoughFunding);
+  });
   // use the function we previously created to add the unfunded games to the DOM
 }
 
 // show only games that are fully funded
 function filterFundedOnly() {
-  deleteChildElements(gamesContainer);
+  const fundedbtn = document.getElementById('funded-btn');
 
   // use filter() to get a list of games that have met or exceeded their goal
+  const enoughFunding = GAMES_JSON.filter((games) => {
+    return games.pledged > games.goal;
+  });
 
+  fundedbtn.addEventListener('click', () => {
+    deleteChildElements(gamesContainer);
+    addGamesToPage(enoughFunding);
+  });
   // use the function we previously created to add unfunded games to the DOM
 }
 
 // show all games
 function showAllGames() {
-  deleteChildElements(gamesContainer);
+  const allbtn = document.getElementById('all-btn');
 
+  allbtn.addEventListener('click', () => {
+    deleteChildElements(gamesContainer);
+    addGamesToPage(GAMES_JSON);
+  });
   // add all games from the JSON data to the DOM
 }
 
@@ -159,4 +169,6 @@ const sortedGames = GAMES_JSON.sort((item1, item2) => {
 
 // do the same for the runner up item
 
-addGamesToPage(GAMES_JSON);
+filterUnfundedOnly(GAMES_JSON);
+filterFundedOnly(GAMES_JSON);
+showAllGames(GAMES_JSON);
