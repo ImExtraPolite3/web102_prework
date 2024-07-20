@@ -38,7 +38,7 @@ function addGamesToPage(games) {
 
     // set the inner HTML using a template literal to display some info
     // about each game
-    newDiv.innerHTML = `<img src = ${games[i].img} /> <br> 
+    newDiv.innerHTML = `<img src = ${games[i].img} width="300px"/> <br> 
     ${games[i].name} <br>
     Amount pledged: $${games[i].pledged} <br>
     Goal amount: $${games[i].goal}`;
