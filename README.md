@@ -38,9 +38,11 @@ GIF created with GIPHY
 
 Describe any challenges encountered while building the app.
 
+I found using .reduce() to be a little difficult to use at the beginning as I was not very familiar with it. However, after a bit of practice I began to appreciate how useful it can be.
+
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2024 Abdul Mohammed
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
