@@ -73,11 +73,8 @@ const totalRaised = GAMES_JSON.reduce((acc, current) => {
 raisedCard.innerHTML = `$${totalRaised.toLocaleString()}`;
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById('num-games');
-let total = 0;
 
-for (let i = 0; i < GAMES_JSON.length + 1; i++) {
-  total = i;
-}
+let total = GAMES_JSON.length;
 
 gamesCard.innerHTML = `${total}`;
 
@@ -178,6 +175,16 @@ const sortedGames = GAMES_JSON.sort((item1, item2) => {
 
 // use destructuring and the spread operator to grab the first and second games
 
+const [firstGame, secondGame, ...others] = sortedGames;
+
 // create a new element to hold the name of the top pledge game, then append it to the correct element
 
+const displayFirst = document.createElement('p');
+displayFirst.textContent = `${firstGame.name}`;
+firstGameContainer.appendChild(displayFirst);
+
 // do the same for the runner up item
+
+const displaySecond = document.createElement('p');
+displaySecond.textContent = `${secondGame.name}`;
+secondGameContainer.appendChild(displaySecond);
